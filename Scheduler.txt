@@ -1,0 +1,29 @@
+startAndReschedule();
+
+private void startAndReschedule() {
+		logger.info("startAndReschedule start process...");
+		startProcess();
+		endProcess();
+		logger.info("startAndReschedule End process...");
+		createNewTask(300l);
+	}	
+
+private void startProcess() {}
+
+private void endProcess() {
+		if (timer != null) {
+			timer.cancel();
+		}
+	}
+
+private void createNewTask(Long seconds) {
+		timer = new Timer();
+		timer.schedule(new RemindTask(), seconds*1000);
+	}
+
+class RemindTask extends TimerTask {
+		@Override
+		public void run() {
+			startAndReschedule();
+		}
+	}
